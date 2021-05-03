@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TECAIS.IOT.HeatMeteringUnit.Models
+namespace TECAIS.IOT.WaterMeteringUnit.Models
 {
-    public class HeatSubmission
+    public class WaterSubmission
     {
         public string Address { get; set; }
         public DateTime TimeOfMeasurement { get; set; }
-        public float HeatComsumption { get; set; }
+        public float WaterComsumption { get; set; }
     }
 }
