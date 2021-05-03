@@ -8,6 +8,7 @@ using Serilog.Events;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TECAIS.IOT.HeatMeteringUnit.Services;
 
 namespace TECAIS.IOT.HeatMeteringUnit
 {
@@ -37,7 +38,7 @@ namespace TECAIS.IOT.HeatMeteringUnit
                 {
                     //Add dependencies to service collection
                     services.AddHostedService<UnitConsoleHostedService>();
-
+                    services.AddHttpClient<IHeatSubmissionService, HeatSubmissionService>();
 
                 }).ConfigureLogging((hostingContext, logging) =>
                 {
@@ -50,8 +51,6 @@ namespace TECAIS.IOT.HeatMeteringUnit
                 await builder.UseWindowsService().Build().RunAsync();
             else
                 await builder.RunConsoleAsync();
-
-
 
             Log.CloseAndFlush();
         }
