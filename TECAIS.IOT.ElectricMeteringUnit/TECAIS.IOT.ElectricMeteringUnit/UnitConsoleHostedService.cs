@@ -1,22 +1,19 @@
 ﻿using Microsoft.Extensions.Hosting;
-using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TECAIS.IOT.HeatMeteringUnit.Services;
+using TECAIS.IOT.ElectricMeteringUnit.Services;
 
-namespace TECAIS.IOT.HeatMeteringUnit
+namespace TECAIS.IOT.ElectricMeteringUnit
 {
     public class UnitConsoleHostedService : IHostedService
     {
-        private readonly IHeatSubmissionService _heatSubmissionService;
+        private readonly IElectricSubmissionService _electricSubmissionService;
         private int? _exitCode;
 
-        public UnitConsoleHostedService(IHeatSubmissionService heatSubmissionService)
+        public UnitConsoleHostedService(IElectricSubmissionService electricSubmissionService)
         {
-            _heatSubmissionService = heatSubmissionService;
+            _electricSubmissionService = electricSubmissionService;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -29,12 +26,12 @@ namespace TECAIS.IOT.HeatMeteringUnit
                 Console.WriteLine("Posting");
                 measurement = measurement + 1;
 
-                await _heatSubmissionService.PostHeatSubmission(new Models.HeatSubmission
-                {
-                    Address = "Krusaavej29",
-                    TimeOfMeasurement = DateTime.Now,
-                    HeatComsumption = measurement
-                });
+                //await _electricSubmissionService.PostHeatSubmission(new Models.ElectricSubmission
+                //{
+                //    Address = "Krusaavej29",
+                //    TimeOfMeasurement = DateTime.Now,
+                //    HeatComsumption = measurement
+                //});
 
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }

@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -8,9 +8,9 @@ using Serilog.Events;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using TECAIS.IOT.HeatMeteringUnit.Services;
+using TECAIS.IOT.WaterMeteringUnit.Services;
 
-namespace TECAIS.IOT.HeatMeteringUnit
+namespace TECAIS.IOT.WaterMeteringUnit
 {
     class Program
     {
@@ -37,8 +37,8 @@ namespace TECAIS.IOT.HeatMeteringUnit
                 }).ConfigureServices((hostingContext, services) =>
                 {
                     //Add dependencies to service collection
-                    services.AddHostedService<UnitConsoleHostedService>();
-                    services.AddHttpClient<IHeatSubmissionService, HeatSubmissionService>();
+                    services.AddHostedService<WaterUnitConsoleHostedService>();
+                    services.AddHttpClient<IWaterSubmissionService, WaterSubmissionService>();
 
                 }).ConfigureLogging((hostingContext, logging) =>
                 {
