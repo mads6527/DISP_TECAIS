@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  tecais.heatsubmissionservice:
+    container_name: heat_submission_service
+    image: elgaard1/heat_submission_service
+    build:
+      context: .
+      dockerfile: TECAIS.HeatSubmissionService/Dockerfile
+    ports:
+      - 9000:80
+    restart: always
+
