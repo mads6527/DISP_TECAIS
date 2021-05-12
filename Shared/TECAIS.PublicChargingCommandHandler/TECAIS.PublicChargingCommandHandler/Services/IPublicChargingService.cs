@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelContracts
+namespace TECAIS.PublicChargingCommandHandler.Services
 {
-    public interface ElectricityPriceCommand
+    public interface IPublicChargingService
     {
-        public double Price { get; set; }
+        Task<double> GetPrice();
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TECAIS.HeatPricingCommandHandler.Model
+namespace ModelContracts
 {
     public interface HeatPriceCommand
     {

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ModelContracts
 {
-    public interface ElectricityPriceCommand
+    class PublicChargingCommand
     {
-        public double Price { get; set; }
+        public double TaxPrice { get; set; }
     }
 }
