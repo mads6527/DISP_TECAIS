@@ -1,8 +1,8 @@
 ﻿using MassTransit;
+using ModelContracts;
 using Serilog;
 using System;
 using System.Threading.Tasks;
-using TECAIS.HeatPricingCommandHandler.Model;
 using TECAIS.HeatPricingCommandHandler.Services;
 
 namespace TECAIS.HeatPricingCommandHandler.Consumer

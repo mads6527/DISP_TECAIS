@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -7,8 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TECAIS.HeatSubmissionService.Helpers;
-using TECAIS.HeatSubmissionService.Models;
+using TECAIS.HeatSubmissionService.Config; 
+using Saga;
 
 namespace TECAIS.HeatSubmissionService.Controllers
 {
@@ -16,49 +17,28 @@ namespace TECAIS.HeatSubmissionService.Controllers
     [Route("[controller]")]
     public class HeatSubmissionController : ControllerBase
     {
+        private readonly IPublishEndpoint _endpoint; 
+
         private readonly ILogger<HeatSubmissionController> _logger;
 
-        public HeatSubmissionController(ILogger<HeatSubmissionController> logger)
+        public HeatSubmissionController(ILogger<HeatSubmissionController> logger, IPublishEndpoint endpoint)
         {
             _logger = logger;
+            _endpoint = endpoint;
         }
 
         //POST - Creates a new heat submission
         [HttpPost]
-        public IActionResult CreateHeatSubmission(HeatSubmission heatSubmission)
+        public async Task<IActionResult> CreateHeatSubmission(HeatSubmission heatSubmission)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            try
+            await _endpoint.Publish<HeatSubmission>(new
             {
-                using (var connection = factory.CreateConnection())
-                {
-                    using (var channel = connection.CreateModel())
-                    {
-                        channel.QueueDeclare(queue: "HeatSubmissionsPublish",
-                                             durable: false,
-                                             exclusive: false,
-                                             autoDelete: false,
-                                             arguments: null);
+                Address = heatSubmission.Address,
+                TimeOfMeasurement = heatSubmission.TimeOfMeasurement,
+                HeatConsumption = heatSubmission.HeatConsumption
+            });
 
-                        string msg = JsonConvert.SerializeObject(heatSubmission);
-                        var reqBody = Encoding.UTF8.GetBytes(msg);
-
-                        Console.WriteLine(reqBody);
-
-                        channel.BasicPublish(exchange: "",
-                                             routingKey: "HeatSubmissionsPublish",
-                                             basicProperties: null,
-                                             body: reqBody);
-                    }
-                }
-
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
+            return Ok();
         }
     }
 }

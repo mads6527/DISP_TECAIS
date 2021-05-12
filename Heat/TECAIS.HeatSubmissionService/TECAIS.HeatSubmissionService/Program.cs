@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TECAIS.HeatSubmissionService.Helpers;
 
 namespace TECAIS.HeatSubmissionService
 {
@@ -25,6 +24,7 @@ namespace TECAIS.HeatSubmissionService
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
                 });
     }
 }

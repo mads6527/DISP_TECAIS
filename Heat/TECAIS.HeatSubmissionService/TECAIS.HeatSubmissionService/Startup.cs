@@ -1,3 +1,5 @@
+using MassTransit;
+using MassTransit.RabbitMqTransport;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TECAIS.HeatSubmissionService.Helpers;
+using TECAIS.HeatSubmissionService.Config; 
 
 namespace TECAIS.HeatSubmissionService
 {
@@ -20,9 +22,6 @@ namespace TECAIS.HeatSubmissionService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-            //var _confirms = new Consumer();
-            //_confirms.ConfirmHeatSubmission();
         }
 
         public IConfiguration Configuration { get; }
@@ -36,7 +35,10 @@ namespace TECAIS.HeatSubmissionService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TECAIS.HeatSubmissionService", Version = "v1" });
             });
 
-            //services.AddHostedService<ConfirmHeatSubmission>(); 
+            services.AddMassTransit(cfg =>
+            {
+                cfg.UsingRabbitMq(ConfigureBus); 
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +61,17 @@ namespace TECAIS.HeatSubmissionService
             {
                 endpoints.MapControllers();
             });
+        }
+
+        static void ConfigureBus(IBusRegistrationContext busRegistrationContext, IRabbitMqBusFactoryConfigurator configurator)
+        {
+            configurator.Host(RabbitMq.RabbitMqUri, "/", h =>
+            {
+                h.Username(RabbitMq.UserName);
+                h.Password(RabbitMq.Password);
+            });
+
+            configurator.ConfigureEndpoints(busRegistrationContext);
         }
     }
 }
