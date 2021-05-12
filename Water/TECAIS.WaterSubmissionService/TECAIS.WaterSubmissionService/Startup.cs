@@ -13,9 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TECAIS.HeatSubmissionService.Config; 
+using TECAIS.WaterSubmissionService.Config;
 
-namespace TECAIS.HeatSubmissionService
+namespace TECAIS.WaterSubmissionService
 {
     public class Startup
     {
@@ -37,7 +37,7 @@ namespace TECAIS.HeatSubmissionService
 
             services.AddMassTransit(cfg =>
             {
-                cfg.UsingRabbitMq(ConfigureBus); 
+                cfg.UsingRabbitMq(ConfigureBus);
             });
         }
 
