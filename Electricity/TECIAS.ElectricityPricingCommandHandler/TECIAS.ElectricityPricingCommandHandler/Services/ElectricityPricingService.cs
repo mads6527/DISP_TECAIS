@@ -19,9 +19,23 @@ namespace TECIAS.ElectricityPricingCommandHandler.Services
             _logger = logger;
         }
 
-        public Task<double> GetPrice()
+        public async Task<double> GetPrice()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.Information("Getting price from ElectricityPricingService");
+                HttpResponseMessage response = await _htttpClient.GetAsync("url");
+
+                response.EnsureSuccessStatusCode();
+
+                string reponseContent = await response.Content.ReadAsStringAsync();
+
+                return double.Parse(reponseContent);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetPrice failed with:", ex);
+            }
         }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TECAIS.HeatPricingCommandHandler.Services
 {
-    interface IHeatPricingServices
+    public interface IHeatPricingService
     {
+        Task<double> GetPrice();
+
     }
 }

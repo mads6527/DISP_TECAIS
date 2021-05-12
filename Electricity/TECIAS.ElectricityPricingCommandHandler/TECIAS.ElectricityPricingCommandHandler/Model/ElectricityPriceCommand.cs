@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TECIAS.ElectricityPricingCommandHandler.Model
 {
-    class Class1
+    public interface ElectricityPriceCommand
     {
+        public double Price { get; set; }
     }
 }

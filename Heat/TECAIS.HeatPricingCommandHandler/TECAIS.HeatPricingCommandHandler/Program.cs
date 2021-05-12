@@ -51,16 +51,6 @@ namespace TECAIS.HeatPricingCommandHandler
                         cfg.AddConsumer<HeatPriceConsumer>(typeof(HeatPriceConsumerDefinition));
 
 
-                        //cfg.AddConsumersFromNamespaceContaining<AllocateInventoryConsumer>();
-                        //cfg.AddSagaStateMachine<AllocationStateMachine, AllocationState>(typeof(AllocateStateMachineDefinition))
-                        //    .MongoDbRepository(r =>
-                        //    {
-                        //        r.Connection = "mongodb://127.0.0.1";
-                        //        r.DatabaseName = "allocations";
-                        //    });
-
-
-
                         cfg.UsingRabbitMq(ConfigureBus);
                     });
 

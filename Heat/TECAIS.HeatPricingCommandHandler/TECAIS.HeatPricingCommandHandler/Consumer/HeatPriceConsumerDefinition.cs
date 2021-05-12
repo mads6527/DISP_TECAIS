@@ -15,7 +15,7 @@ namespace TECAIS.HeatPricingCommandHandler.Consumer
         protected override void ConfigureConsumer(IReceiveEndpointConfigurator endpointConfigurator,
         IConsumerConfigurator<HeatPriceConsumer> consumerConfigurator)
         {
-            endpointConfigurator.UseMessageRetry(r => r.Interval(5, 1000));
+            endpointConfigurator.UseMessageRetry(r => r.Intervals(100, 200, 500, 800, 1000));
             
         }
     }

@@ -7,7 +7,7 @@ using TECAIS.HeatPricingCommandHandler.Services;
 
 namespace TECAIS.HeatPricingCommandHandler.Consumer
 {
-    class HeatPriceConsumer : IConsumer<HeatPriceCommand>
+    public class HeatPriceConsumer : IConsumer<HeatPriceCommand>
     {
         private readonly IHeatPricingService _heatPricingService;
         private readonly ILogger _logger;

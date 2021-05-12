@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TECIAS.ElectricityPricingCommandHandler.Services
 {
-    interface IHeatPricingService
+    interface IElectricityPricingService
     {
+        Task<double> GetPrice();
     }
 }
