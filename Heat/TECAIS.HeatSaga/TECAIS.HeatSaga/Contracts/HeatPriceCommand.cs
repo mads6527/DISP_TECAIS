@@ -1,6 +1,6 @@
 ﻿namespace ModelContracts
 {
-    public interface WaterPriceCommand
+    public interface HeatPriceCommand
     {
         public double HeatConsumption { get; set; }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelContracts
 {
-    public interface WaterPriceResult
+    public interface HeatPriceResult
     {
         public double HeatPrice { get; set; }
     }

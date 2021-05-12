@@ -20,7 +20,7 @@ namespace TECAIS.HeatSaga.CourierActivities
             _client = client;
         }
 
-        //
+        //If it fails we need to do something. 
         public Task<CompensationResult> Compensate(CompensateContext<HeatSubmissionLog> context)
         {
             throw new NotImplementedException();
