@@ -30,7 +30,15 @@ namespace TECAIS.HeatSaga.CourierActivities
         //Do argument
         public async Task<ExecutionResult> Execute(ExecuteContext<HeatSubmissionPriceArguments> context)
         {
-            var response = await _client.GetResponse<WaterPriceResult>()
+            var response = await _client.GetResponse<HeatPriceCommand>(new
+            {
+                HeatConsumption = context.Arguments.HeatConsumption
+            });
+
+            if (response == null)
+                return context.Faulted();
+
+            return context.Completed(new { HeatPrice = response });
         }
     }
 
@@ -39,9 +47,9 @@ namespace TECAIS.HeatSaga.CourierActivities
     {
         double HeatConsumption { get; }
     }
-    //want to keep trackof
+    //want to keep trackof returns
     public interface HeatSubmissionLog 
     {
-        Guid HeatConsumptionId { get; }
+        double HeatPrice { get; }
     }
 }
