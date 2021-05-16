@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: swtdisp-ap1-gr10
-  name: swtdisp-grp10-electricity-submission-service
+  name: swtdisp-grp10-heat-submission-service
   labels:
-    app: swtdisp-grp10-electricity-submission-service
+    app: swtdisp-grp10-heat-submission-service
     
 spec:
   type: LoadBalancer
@@ -13,4 +13,4 @@ spec:
       port: 80
       targetPort: 80
   selector:
-    app: electricity-submission-service-pod
+    app: heat-submission-service-pod

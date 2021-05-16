@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: swtdisp-ap1-gr10
+  name: swtdisp-grp10-heat-submission
+  labels:
+    app: swtdisp-grp10-heat-submission
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: heat-submission-pod
+
+  template:
+    metadata:
+      name: heat-submission-pod
+      labels:
+        app: heat-submission-pod
+
+    spec:
+      containers:
+        - name: swtdisp-grp10-heat-submission
+          image: elgaard1/heat_submission_service
+          ports:
+            - containerPort: 80 

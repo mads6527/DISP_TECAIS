@@ -40,5 +40,12 @@ namespace TECAIS.HeatSubmissionService.Controllers
 
             return Ok();
         }
+
+        //POST - Creates a new heat submission
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok("Hej");
+        }
     }
 }

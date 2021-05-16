@@ -7,7 +7,7 @@ namespace TECAIS.HeatSubmissionService.Config
 {
     public class RabbitMq
     {
-        public const string RabbitMqUri = "localhost"; //"rabbitmq://localhost/heatsubmission/";
+        public const string RabbitMqUri = "rabbitmq"; //"rabbitmq://localhost/heatsubmission/";
         public const string UserName = "guest";
         public const string Password = "guest";
     }
