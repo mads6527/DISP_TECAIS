@@ -3,7 +3,7 @@ version: '3.4'
 services:
   tecais.iot.heatmeteringunit:
     container_name: iot_heat_metering_unit
-    image: elgaard1/iot_heat_metering_unit26
+    image: elgaard1/iot_heat_metering_unit31
     networks:
       - disp
     build:

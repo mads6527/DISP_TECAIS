@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -18,9 +19,10 @@ namespace TECAIS.IOT.HeatMeteringUnit.Services
 
         public async Task PostHeatSubmission(HeatSubmission submission)
         {
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
             var content = new StringContent(JsonConvert.SerializeObject(submission), Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _httpClient.PostAsync("https://172.28.0.3:80/HeatSubmission", content);
+            HttpResponseMessage response = await _httpClient.PostAsync("https://heat_submission_service:443/HeatSubmission", content);
             response.EnsureSuccessStatusCode();
         }
     }

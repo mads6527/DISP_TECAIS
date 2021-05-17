@@ -1,10 +1,10 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/runtime:5.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime:3.1 AS base
 WORKDIR /app
 EXPOSE 9000
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["TECAIS.IOT.HeatMeteringUnit/TECAIS.IOT.HeatMeteringUnit.csproj", "TECAIS.IOT.HeatMeteringUnit/"]
 RUN dotnet restore "TECAIS.IOT.HeatMeteringUnit/TECAIS.IOT.HeatMeteringUnit.csproj"
