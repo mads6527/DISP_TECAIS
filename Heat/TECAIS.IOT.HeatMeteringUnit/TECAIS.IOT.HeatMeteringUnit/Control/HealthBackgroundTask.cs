@@ -31,7 +31,7 @@ namespace TECAIS.IOT.HeatMeteringUnit.Control
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            Console.WriteLine("stop");
+            Console.WriteLine("Stop");
 
             return Task.CompletedTask;
         }

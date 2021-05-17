@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TECAIS.IOT.HeatMeteringUnit.Models;
@@ -16,11 +18,9 @@ namespace TECAIS.IOT.HeatMeteringUnit.Services
 
         public async Task PostHeatSubmission(HeatSubmission submission)
         {
+            var content = new StringContent(JsonConvert.SerializeObject(submission), Encoding.UTF8, "application/json");
 
-            var json = JsonSerializer.Serialize(submission);
-            var content = new StringContent(json);
-
-            HttpResponseMessage response = await _httpClient.PostAsync("url", content);
+            HttpResponseMessage response = await _httpClient.PostAsync("https://172.28.0.3:80/HeatSubmission", content);
             response.EnsureSuccessStatusCode();
         }
     }

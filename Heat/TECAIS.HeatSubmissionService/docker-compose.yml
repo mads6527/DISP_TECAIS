@@ -2,6 +2,8 @@ version: '3.4'
 services:
   rabbitmq: # login guest:guest
     image: rabbitmq:3-management
+    networks:
+      - disp
     hostname: rabbitmq
     container_name: rabbitmq
     labels:
@@ -11,8 +13,10 @@ services:
       - 15672:15672
 
   tecais.heatsubmissionservice:
-    container_name: heat_submission_service8
-    image: elgaard1/heat_submission_service8
+    container_name: heat_submission_service
+    image: elgaard1/heat_submission_service10
+    networks:
+      - disp
     build:
       context: .
       dockerfile: TECAIS.HeatSubmissionService/Dockerfile
@@ -22,3 +26,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
+networks:
+  disp:
+    external: 
+      name: disp
