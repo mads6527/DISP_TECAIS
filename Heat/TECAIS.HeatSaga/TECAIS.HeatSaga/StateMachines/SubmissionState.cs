@@ -15,6 +15,4 @@ namespace TECAIS.HeatSaga.StateMachines
         public double PublicCharging { get; set; }
         public DateTime TimeOfMeasurement { get; set; }
     }
-
-    //use redis to persist state
 }
