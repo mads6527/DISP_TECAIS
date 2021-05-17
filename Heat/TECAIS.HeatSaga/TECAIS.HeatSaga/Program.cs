@@ -1,5 +1,4 @@
-﻿using Contracts;
-using MassTransit;
+﻿using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,15 +40,8 @@ namespace TECAIS.HeatSaga
                 {
                     services.AddMassTransit(cfg =>
                     {
-                        //cfg.AddConsumer<WaterPriceConsumer>(typeof(WaterPriceConsumerDefinition));
-
-                        //set up redis repository
                         cfg.AddSagaStateMachine<HeatSubmissionStateMachine, SubmissionState>()
-                            .RedisRepository(/*config => able to configure redis here*/);
-
-                        cfg.AddRequestClient<HeatPricingCommand>();
-                        cfg.AddRequestClient<HeatPublicCharingCommand>();
-                        cfg.AddRequestClient<HeatAccountingCommand>();
+                            .InMemoryRepository();
 
                         cfg.UsingRabbitMq(ConfigureBus);
                     });
@@ -77,6 +69,11 @@ namespace TECAIS.HeatSaga
             {
                 h.Username("guest");
                 h.Password("guest");
+            });
+
+            configurator.ReceiveEndpoint("HeatSaga", e =>
+            {
+                e.ConfigureSaga<SubmissionState>(busRegistrationContext);
             });
 
             configurator.ConfigureEndpoints(busRegistrationContext);
