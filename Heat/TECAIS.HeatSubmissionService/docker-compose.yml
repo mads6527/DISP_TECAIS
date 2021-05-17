@@ -14,7 +14,7 @@ services:
 
   tecais.heatsubmissionservice:
     container_name: heat_submission_service
-    image: elgaard1/heat_submission_service10
+    image: elgaard1/heat_submission_service11
     networks:
       - disp
     build:

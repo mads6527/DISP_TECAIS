@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: swtdisp-ap1-gr10
+  name: swtdisp-grp10-iot_heat_metering_unit
+  labels:
+    app: swtdisp-grp10-iot_heat_metering_unit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tecaisiotheatmeteringunit-pod
+  
+  template:
+    metadata:
+      name: tecaisiotheatmeteringunit-pod
+      labels:
+        app: tecaisiotheatmeteringunit-pod
+    spec:
+      containers:
+        - name: swtdisp-grp10-iot_heat_metering_unit-container
+          image: elgaard1/iot_heat_metering_unit
+          ports:
+            - containerPort: 80 
