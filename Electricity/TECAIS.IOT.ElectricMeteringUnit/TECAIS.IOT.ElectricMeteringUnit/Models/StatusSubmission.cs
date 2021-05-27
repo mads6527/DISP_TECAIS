@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TECAIS.IOT.ElectricMeteringUnit.Models
 {
-    public class ElectricSubmission
+    public class StatusSubmission
     {
         public string Address { get; set; }
-        public DateTime TimeOfMeasurement { get; set; }
-        public float ElectricityComsumption { get; set; }
+        public string Status { get; set; }
+        public DateTime TimeOfStatus { get; set; }
     }
 }

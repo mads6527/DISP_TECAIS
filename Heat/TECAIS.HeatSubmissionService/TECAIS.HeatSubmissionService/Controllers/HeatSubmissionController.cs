@@ -31,12 +31,12 @@ namespace TECAIS.HeatSubmissionService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateHeatSubmission(HeatSubmission heatSubmission)
         {
-            await _endpoint.Publish<HeatSubmission>(new
-            {
-                Address = heatSubmission.Address,
-                TimeOfMeasurement = heatSubmission.TimeOfMeasurement,
-                HeatConsumption = heatSubmission.HeatConsumption
-            });
+            //await _endpoint.Publish<HeatSubmission>(new
+            //{
+            //    Address = heatSubmission.Address,
+            //    TimeOfMeasurement = heatSubmission.TimeOfMeasurement,
+            //    HeatConsumption = heatSubmission.HeatConsumption
+            //});
 
             return Ok();
         }

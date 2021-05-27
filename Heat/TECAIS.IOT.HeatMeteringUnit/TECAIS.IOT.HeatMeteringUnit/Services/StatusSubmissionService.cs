@@ -8,24 +8,23 @@ using TECAIS.IOT.HeatMeteringUnit.Models;
 
 namespace TECAIS.IOT.HeatMeteringUnit.Services
 {
-    public class HeatSubmissionService : IHeatSubmissionService
+    public class StatusSubmissionService : IStatusSubmissionService
     {
         public readonly HttpClient _httpClient;
 
-        public HeatSubmissionService(HttpClient httpClient)
+        public StatusSubmissionService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task PostHeatSubmission(HeatSubmission submission)
+        public async Task PostStatusSubmission(StatusSubmission submission)
         {
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
             var content = new StringContent(JsonConvert.SerializeObject(submission), Encoding.UTF8, "application/json");
 
-            //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_submission_service:443/HeatSubmission", content);
-            HttpResponseMessage response = await _httpClient.PostAsync("https://localhost:44353/HeatSubmission", content);
-    
-                response.EnsureSuccessStatusCode();
+            //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_status_service:443/StatusSubmission", content);
+            HttpResponseMessage response = await _httpClient.PostAsync("http://localhost:56497/StatusSubmission", content); 
+            response.EnsureSuccessStatusCode();
         }
     }
 }

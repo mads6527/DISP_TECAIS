@@ -6,8 +6,9 @@ using Serilog;
 using Serilog.Events;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-
+using TECAIS.IOT.ElectricMeteringUnit.Control;
 using TECAIS.IOT.ElectricMeteringUnit.Services;
 
 namespace TECAIS.IOT.ElectricMeteringUnit
@@ -36,9 +37,29 @@ namespace TECAIS.IOT.ElectricMeteringUnit
 
                 }).ConfigureServices((hostingContext, services) =>
                 {
+                    services.AddHostedService<HealthBackgroundTask>();
+                    services.AddHttpClient<IStatusSubmissionService, StatusSubmissionService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Manual,
+                        ServerCertificateCustomValidationCallback =
+                        (sender, cert, chain, sslPolicyErrors) =>
+                        {
+                            return true;
+                        }
+                    });
+
+
                     //Add dependencies to service collection
                     services.AddHostedService<UnitConsoleHostedService>();
-                    services.AddHttpClient<IElectricSubmissionService, ElectricSubmissionService>();
+                    services.AddHttpClient<IElectricSubmissionService, ElectricSubmissionService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Manual,
+                        ServerCertificateCustomValidationCallback =
+                        (sender, cert, chain, sslPolicyErrors) =>
+                        {
+                            return true;
+                        }
+                    });
 
                 }).ConfigureLogging((hostingContext, logging) =>
                 {

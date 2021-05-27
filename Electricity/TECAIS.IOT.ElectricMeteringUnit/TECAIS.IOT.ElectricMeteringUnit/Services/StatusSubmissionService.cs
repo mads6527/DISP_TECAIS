@@ -1,31 +1,31 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using TECAIS.IOT.ElectricMeteringUnit.Models;
 
 namespace TECAIS.IOT.ElectricMeteringUnit.Services
 {
-    public class ElectricSubmissionService : IElectricSubmissionService
+    public class StatusSubmissionService : IStatusSubmissionService
     {
         public readonly HttpClient _httpClient;
 
-        public ElectricSubmissionService(HttpClient httpClient)
+        public StatusSubmissionService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task PostHeatSubmission(ElectricSubmission submission)
+        public async Task PostStatusSubmission(StatusSubmission submission)
         {
-
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
             var content = new StringContent(JsonConvert.SerializeObject(submission), Encoding.UTF8, "application/json");
 
-            // response = await _httpClient.PostAsync("https://electric_submission_service:443/ElectricSubmission", content);
-            HttpResponseMessage response = await _httpClient.PostAsync("https://localhost:44325/ElectricitySubmission", content);
-
+            //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_status_service:443/StatusSubmission", content);
+            HttpResponseMessage response = await _httpClient.PostAsync("http://localhost:44373/StatusSubmission", content); 
             response.EnsureSuccessStatusCode();
         }
     }
