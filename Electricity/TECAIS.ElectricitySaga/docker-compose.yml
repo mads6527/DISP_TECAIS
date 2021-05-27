@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  tecais.electricitysaga:
+    image: ${DOCKER_REGISTRY-}tecaiselectricitysaga
+    build:
+      context: .
+      dockerfile: TECAIS.ElectricitySaga/Dockerfile
