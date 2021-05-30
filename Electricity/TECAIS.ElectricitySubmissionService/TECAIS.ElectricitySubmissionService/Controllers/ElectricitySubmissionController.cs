@@ -30,12 +30,12 @@ namespace TECAIS.ElectricitySubmissionService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateWaterSubmission(ElectricitySubmission electricitySubmission)
         {
-            await _endpoint.Publish<ElectricitySubmission>(new
-            {
-                Address = electricitySubmission.Address,
-                TimeOfMeasurement = electricitySubmission.TimeOfMeasurement,
-                WaterConsumption = electricitySubmission.ElectricityConsumption
-            });
+            //await _endpoint.Publish<ElectricitySubmission>(new
+            //{
+            //    Address = electricitySubmission.Address,
+            //    TimeOfMeasurement = electricitySubmission.TimeOfMeasurement,
+            //    WaterConsumption = electricitySubmission.ElectricityConsumption
+            //});
 
             return Ok();
         }

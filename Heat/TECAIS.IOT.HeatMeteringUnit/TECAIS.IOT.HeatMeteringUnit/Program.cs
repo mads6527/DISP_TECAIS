@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TECAIS.IOT.HeatMeteringUnit.Control;
 using TECAIS.IOT.HeatMeteringUnit.Services;
 
 namespace TECAIS.IOT.HeatMeteringUnit
@@ -37,6 +38,19 @@ namespace TECAIS.IOT.HeatMeteringUnit
 
                 }).ConfigureServices((hostingContext, services) =>
                 {
+                    services.AddHostedService<HealthBackgroundTask>();
+                    services.AddHttpClient<IStatusSubmissionService, StatusSubmissionService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Manual,
+                        ServerCertificateCustomValidationCallback =
+                        (sender, cert, chain, sslPolicyErrors) =>
+                        {
+                            return true;
+                        }
+                    });
+
+
+
                     //Add dependencies to service collection
                     services.AddHostedService<UnitConsoleHostedService>();
                     services.AddHttpClient<IHeatSubmissionService, HeatSubmissionService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
@@ -49,12 +63,15 @@ namespace TECAIS.IOT.HeatMeteringUnit
                         }
                     });
 
+                    
+
+
                 }).ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                     logging.AddSerilog(dispose: true);
                 });
-
+                
 
             if (isService)
                 await builder.UseWindowsService().Build().RunAsync();

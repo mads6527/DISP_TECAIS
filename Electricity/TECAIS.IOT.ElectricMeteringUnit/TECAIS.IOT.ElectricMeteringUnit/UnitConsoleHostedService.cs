@@ -26,12 +26,12 @@ namespace TECAIS.IOT.ElectricMeteringUnit
                 Console.WriteLine("Posting");
                 measurement = measurement + 1;
 
-                //await _electricSubmissionService.PostHeatSubmission(new Models.ElectricSubmission
-                //{
-                //    Address = "Krusaavej29",
-                //    TimeOfMeasurement = DateTime.Now,
-                //    HeatComsumption = measurement
-                //});
+                await _electricSubmissionService.PostHeatSubmission(new Models.ElectricSubmission
+                {
+                    Address = "Krusaavej29",
+                    TimeOfMeasurement = DateTime.Now,
+                    ElectricityComsumption = measurement
+                });
 
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
