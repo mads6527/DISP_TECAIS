@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: swtdisp-grp10-iot-heat-metering-unit-container
-          image: elgaard1/iot_heat_metering_unit
+          image: mark2830/iot_heat_metering_unit
           ports:
             - containerPort: 80 

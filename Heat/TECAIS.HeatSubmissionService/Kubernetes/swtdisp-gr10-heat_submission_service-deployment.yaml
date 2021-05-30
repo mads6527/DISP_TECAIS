@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: swtdisp-grp10-heat-submission-container
-          image: elgaard1/heat_submission_service
+          image: mark2830/heat_submission_service
           ports:
             - containerPort: 80 
             
