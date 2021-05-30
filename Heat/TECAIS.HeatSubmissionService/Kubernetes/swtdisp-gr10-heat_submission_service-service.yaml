@@ -7,7 +7,7 @@ metadata:
     app: swtdisp-grp10-heat-submission-service
     
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - protocol: TCP
       port: 80

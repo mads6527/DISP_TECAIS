@@ -65,7 +65,7 @@ namespace TECAIS.HeatSaga
 
         static void ConfigureBus(IBusRegistrationContext busRegistrationContext, IRabbitMqBusFactoryConfigurator configurator)
         {
-            configurator.Host("rabbitmq", "/", h =>
+            configurator.Host("localhost", "/", h =>
             {
                 h.Username("guest");
                 h.Password("guest");

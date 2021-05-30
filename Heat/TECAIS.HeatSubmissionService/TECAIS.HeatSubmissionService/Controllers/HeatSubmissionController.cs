@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TECAIS.HeatSubmissionService.Config; 
-using Saga;
+using SagaContracts;
 
 namespace TECAIS.HeatSubmissionService.Controllers
 {
@@ -29,9 +29,9 @@ namespace TECAIS.HeatSubmissionService.Controllers
 
         //POST - Creates a new heat submission
         [HttpPost]
-        public async Task<IActionResult> CreateHeatSubmission(HeatSubmission heatSubmission)
+        public async Task<IActionResult> CreateHeatSubmission(HeatSubmissionSubmitted heatSubmission)
         {
-            await _endpoint.Publish<HeatSubmission>(new
+            await _endpoint.Publish<HeatSubmissionSubmitted>(new
             {
                 Address = heatSubmission.Address,
                 TimeOfMeasurement = heatSubmission.TimeOfMeasurement,

@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: swtdisp-ap1-gr10
-  name: swtdisp-grp10-iot_heat_metering_unit-service
+  name: swtdisp-grp10-iot-heat-metering-unit-service
   labels:
-    app: swtdisp-grp10-iot_heat_metering_unit-service
+    app: swtdisp-grp10-iot-heat-metering-unit-service
       
 spec:
    type: NodePort
@@ -13,4 +13,4 @@ spec:
        port: 80
        targetPort: 80
    selector:
-     app: tecaisiotheatmeteringunit-pod
+     app: iot-heat-metering-unit-pod

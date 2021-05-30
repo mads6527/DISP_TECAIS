@@ -2,16 +2,16 @@ version: '3.4'
 
 services:
   tecais.heatsaga:
-    container_name: heatsaga
-    image: ${DOCKER_REGISTRY-}heatsaga4
+    container_name: heat_saga
+    image: ${DOCKER_REGISTRY-}heatsaga5
     networks:
       - disp
     build:
       context: .
       dockerfile: TECAIS.HeatSaga/Dockerfile
     ports:
-      - 9000:80
-      - 44366:80
+      - 3000:80
+      - 44369:80
     restart: always
 networks:
   disp:

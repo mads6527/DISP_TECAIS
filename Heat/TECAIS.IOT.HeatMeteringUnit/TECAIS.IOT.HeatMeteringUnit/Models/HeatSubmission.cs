@@ -10,6 +10,6 @@ namespace TECAIS.IOT.HeatMeteringUnit.Models
     {
         public string Address { get; set; }
         public DateTime TimeOfMeasurement { get; set; }
-        public float HeatComsumption { get; set; }
+        public double HeatComsumption { get; set; }
     }
 }

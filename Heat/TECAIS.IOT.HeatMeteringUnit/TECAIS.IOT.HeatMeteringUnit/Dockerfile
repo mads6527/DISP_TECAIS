@@ -2,7 +2,9 @@
 
 FROM mcr.microsoft.com/dotnet/runtime:3.1 AS base
 WORKDIR /app
-EXPOSE 9000
+#EXPOSE 9000 #docker-compose
+EXPOSE 80 
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
