@@ -1,16 +1,22 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   namespace: swtdisp-ap1-gr10
-  name: swtdisp-grp10-rabbitmq-service
+  name: swtdisp-grp10-rabbitmq-client-service
   labels:
-    app: swtdisp-grp10-rabbitmq-service
-      
+    app: swtdisp-grp10-rabbitmq
+    type: LoadBalancer
 spec:
-   type: LoadBalancer
-   ports:
-     - protocol: TCP
-       port: 80
-       targetPort: 80
-   selector:
-     app: tecaisrabbitmq-pod
+  type: LoadBalancer
+  ports:
+   - name: http
+     protocol: TCP
+     port: 15672
+   - name: prometheus
+     protocol: TCP
+     port: 15692
+   - name: amqp
+     protocol: TCP
+     port: 5672
+  selector:
+    app: tecaisrabbitmq-pod
