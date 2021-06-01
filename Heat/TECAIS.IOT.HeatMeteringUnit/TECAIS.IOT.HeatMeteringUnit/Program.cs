@@ -38,16 +38,16 @@ namespace TECAIS.IOT.HeatMeteringUnit
 
                 }).ConfigureServices((hostingContext, services) =>
                 {
-                    services.AddHostedService<HealthBackgroundTask>();
-                    services.AddHttpClient<IStatusSubmissionService, StatusSubmissionService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-                    {
-                        ClientCertificateOptions = ClientCertificateOption.Manual,
-                        ServerCertificateCustomValidationCallback =
-                        (sender, cert, chain, sslPolicyErrors) =>
-                        {
-                            return true;
-                        }
-                    });
+                    //services.AddHostedService<HealthBackgroundTask>();
+                    //services.AddHttpClient<IStatusSubmissionService, StatusSubmissionService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+                    //{
+                    //    ClientCertificateOptions = ClientCertificateOption.Manual,
+                    //    ServerCertificateCustomValidationCallback =
+                    //    (sender, cert, chain, sslPolicyErrors) =>
+                    //    {
+                    //        return true;
+                    //    }
+                    //});
 
 
 

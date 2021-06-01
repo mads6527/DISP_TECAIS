@@ -10,21 +10,23 @@ namespace TECAIS.IOT.HeatMeteringUnit.Services
 {
     public class StatusSubmissionService : IStatusSubmissionService
     {
-        public readonly HttpClient _httpClient;
+        public readonly HttpClient __httpClient;
 
-        public StatusSubmissionService(HttpClient httpClient)
+        public StatusSubmissionService()
         {
-            _httpClient = httpClient;
+            //__httpClient = httpClient;
         }
 
         public async Task PostStatusSubmission(StatusSubmission submission)
         {
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
             var content = new StringContent(JsonConvert.SerializeObject(submission), Encoding.UTF8, "application/json");
-
-            //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_status_service:443/StatusSubmission", content);
-            HttpResponseMessage response = await _httpClient.PostAsync("https://swtdisp-grp10-heat-status-submission:80/StatusSubmission", content); 
+            using (var _httpClient = new HttpClient())
+            { 
+                //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_status_service:443/StatusSubmission", content);
+            HttpResponseMessage response = await _httpClient.PostAsync("http://swtdisp-grp10-heat-status-submission-service:80/StatusSubmission", content); 
             response.EnsureSuccessStatusCode();
+            }
         }
     }
 }
