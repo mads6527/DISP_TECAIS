@@ -13,4 +13,4 @@ spec:
       port: 80
       targetPort: 80
   selector:
-    app: heat-submission-service-pod
+    app: swtdisp-grp10-heat-submission-pod

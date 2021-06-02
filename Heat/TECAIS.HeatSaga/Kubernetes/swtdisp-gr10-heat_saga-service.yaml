@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: swtdisp-ap1-gr10
-  name: swtdisp-grp10-heat-status-submission-service
+  name: swtdisp-grp10-heat-saga-service
   labels:
-    app: swtdisp-grp10-heat-status-submission-service
+    app: swtdisp-grp10-heat-saga-service
     
 spec:
   type: ClusterIP
@@ -13,4 +13,4 @@ spec:
       port: 80
       targetPort: 80
   selector:
-    app: heat-status-submission-service-pod
+    app: swtdisp-grp10-heat-saga-pod

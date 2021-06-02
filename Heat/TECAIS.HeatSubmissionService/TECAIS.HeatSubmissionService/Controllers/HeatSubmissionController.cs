@@ -38,6 +38,7 @@ namespace TECAIS.HeatSubmissionService.Controllers
                 HeatConsumption = heatSubmission.HeatConsumption
             });
 
+            Console.WriteLine("Submitted heatsubmission: Address: " + heatSubmission.Address + " TimeOfMeasurement: " + heatSubmission.Address + " HeatConsumption: " + heatSubmission.HeatConsumption); 
             return Ok();
         }
 
