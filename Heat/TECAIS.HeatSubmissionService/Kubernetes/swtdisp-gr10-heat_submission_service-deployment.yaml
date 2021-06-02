@@ -13,9 +13,9 @@ spec:
       app: heat-submission-service-pod
   template:
     metadata:
-      name: heat-submission-pod
+      name: heat-submission-service-pod
       labels:
-        app: heat-submission-pod
+        app: heat-submission-service-pod
 
     spec:
       containers:

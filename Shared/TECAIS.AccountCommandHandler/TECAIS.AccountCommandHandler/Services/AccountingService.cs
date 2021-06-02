@@ -30,7 +30,7 @@ namespace TECAIS.AccountCommandHandler.Services
                 string jsonString = JsonSerializer.Serialize(command);
 
                 HttpRequestMessage message = new HttpRequestMessage();
-                message.RequestUri = new Uri("uri");
+                message.RequestUri = new Uri("http://swtdisp-grp10-accounting-service/Accounting");
                 message.Content = new StringContent(jsonString);
                 message.Method = new HttpMethod("POST");
 

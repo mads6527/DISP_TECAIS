@@ -22,7 +22,7 @@ namespace TECAIS.HeatPricingCommandHandler.Services
             try
             {
                 _logger.Information("Getting price from HeatPricingService");
-                HttpResponseMessage response = await _htttpClient.GetAsync("url");
+                HttpResponseMessage response = await _htttpClient.GetAsync("http://swtdisp-grp10-heat-pricing-service/HeatPrice");
 
                 response.EnsureSuccessStatusCode();
 

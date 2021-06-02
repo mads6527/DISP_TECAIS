@@ -11,7 +11,6 @@ spec:
   selector:
     matchLabels:
       app: tecaisrabbitmq-pod
-
   template:
     metadata:
       name: tecaisrabbitmq-pod
@@ -28,10 +27,3 @@ spec:
             - name: management
               containerPort: 15672
               protocol: TCP
-            - name: prometheus
-              containerPort: 15692
-              protocol: TCP
-            - name: epmd
-              containerPort: 4369
-              protocol: TCP
-            

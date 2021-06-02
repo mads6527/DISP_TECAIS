@@ -31,6 +31,8 @@ namespace TECAIS.HeatSubmissionService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateHeatSubmission(HeatSubmissionSubmitted heatSubmission)
         {
+            _logger.LogInformation("[Received] submission at" + heatSubmission.TimeOfMeasurement);
+
             await _endpoint.Publish<HeatSubmissionSubmitted>(new
             {
                 Address = heatSubmission.Address,

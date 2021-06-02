@@ -24,7 +24,7 @@ namespace TECAIS.PublicChargingCommandHandler.Services
             try
             {
                 _logger.Information("Getting price from PublicChargingService");
-                HttpResponseMessage response = await _httpClient.GetAsync("url");
+                HttpResponseMessage response = await _httpClient.GetAsync("http://swtdisp-grp10-public-charging-service/PublicCharging");
 
                 response.EnsureSuccessStatusCode();
 
