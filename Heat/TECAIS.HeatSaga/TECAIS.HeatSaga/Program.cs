@@ -65,7 +65,7 @@ namespace TECAIS.HeatSaga
 
         static void ConfigureBus(IBusRegistrationContext busRegistrationContext, IRabbitMqBusFactoryConfigurator configurator)
         {
-            configurator.Host("localhost", "/", h =>
+            configurator.Host("34.88.94.207", "/", h =>
             {
                 h.Username("guest");
                 h.Password("guest");

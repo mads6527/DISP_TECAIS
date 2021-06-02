@@ -3,7 +3,7 @@ version: '3.4'
 services:
   tecais.heatsaga:
     container_name: heat_saga
-    image: ${DOCKER_REGISTRY-}heatsaga5
+    image: ${DOCKER_REGISTRY-}heat-saga
     networks:
       - disp
     build:
