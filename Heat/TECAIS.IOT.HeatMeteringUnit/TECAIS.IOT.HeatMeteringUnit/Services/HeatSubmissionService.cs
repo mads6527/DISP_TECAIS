@@ -23,7 +23,7 @@ namespace TECAIS.IOT.HeatMeteringUnit.Services
             var content = new StringContent(JsonConvert.SerializeObject(submission), Encoding.UTF8, "application/json");
             
             //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_submission_service:80/HeatSubmission", content);
-            HttpResponseMessage response = await _httpClient.PostAsync("https://swtdisp-grp10-heat-submission-service:80/HeatSubmission", content); // for docker compose write: https://heat_submission_service:443/HeatSubmission
+            HttpResponseMessage response = await _httpClient.PostAsync("http://swtdisp-grp10-heat-submission-service:80/HeatSubmission", content); // for docker compose write: https://heat_submission_service:443/HeatSubmission
             response.EnsureSuccessStatusCode();
         }
     }

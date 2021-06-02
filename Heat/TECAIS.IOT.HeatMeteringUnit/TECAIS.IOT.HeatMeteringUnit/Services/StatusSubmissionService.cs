@@ -23,7 +23,7 @@ namespace TECAIS.IOT.HeatMeteringUnit.Services
             var content = new StringContent(JsonConvert.SerializeObject(submission), Encoding.UTF8, "application/json");
 
             //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_status_service:443/StatusSubmission", content);
-            HttpResponseMessage response = await _httpClient.PostAsync("https://swtdisp-grp10-heat-status-submission:80/StatusSubmission", content); 
+            HttpResponseMessage response = await _httpClient.PostAsync("http://swtdisp-grp10-heat-status-submission:80/StatusSubmission", content); 
             response.EnsureSuccessStatusCode();
         }
     }

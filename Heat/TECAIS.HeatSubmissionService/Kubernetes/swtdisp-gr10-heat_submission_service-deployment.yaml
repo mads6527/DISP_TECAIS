@@ -5,21 +5,22 @@ metadata:
   name: swtdisp-grp10-heat-submission
   labels:
     app: swtdisp-grp10-heat-submission
+
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: heat-submission-service-pod
+      app: heat-submission-pod
 
   template:
     metadata:
-      name: heat-submission-service-pod
+      name: heat-submission-pod
       labels:
-        app: heat-submission-service-pod
+        app: heat-submission-pod
+
     spec:
       containers:
-        - name: swtdisp-grp10-heat-submission-container
+        - name: swtdisp-grp10-heat-submission
           image: mark2830/heat_submission_service
           ports:
             - containerPort: 80 
-            
