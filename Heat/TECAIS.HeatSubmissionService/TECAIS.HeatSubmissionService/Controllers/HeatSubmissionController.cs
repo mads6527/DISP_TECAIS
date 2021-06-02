@@ -19,11 +19,9 @@ namespace TECAIS.HeatSubmissionService.Controllers
     {
         private readonly IPublishEndpoint _endpoint; 
 
-        private readonly ILogger<HeatSubmissionController> _logger;
 
-        public HeatSubmissionController(ILogger<HeatSubmissionController> logger, IPublishEndpoint endpoint)
+        public HeatSubmissionController(IPublishEndpoint endpoint)
         {
-            _logger = logger;
             _endpoint = endpoint;
         }
 
@@ -31,15 +29,17 @@ namespace TECAIS.HeatSubmissionService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateHeatSubmission(HeatSubmissionSubmitted heatSubmission)
         {
-            _logger.LogInformation("[Received] submission at" + heatSubmission.TimeOfMeasurement);
+            Console.WriteLine("[Received] submission at" + heatSubmission.TimeOfMeasurement);
 
             await _endpoint.Publish<HeatSubmissionSubmitted>(new
             {
-                Address = heatSubmission.Address,
+                //Id = Guid.NewGuid(),
+                CustomerAddress = heatSubmission.CustomerAddress,
                 TimeOfMeasurement = heatSubmission.TimeOfMeasurement,
                 HeatConsumption = heatSubmission.HeatConsumption
             });
 
+            Console.WriteLine("Submitted heatsubmission: Address: " + heatSubmission.CustomerAddress + " TimeOfMeasurement: " + heatSubmission.TimeOfMeasurement + " HeatConsumption: " + heatSubmission.HeatConsumption); 
             return Ok();
         }
 

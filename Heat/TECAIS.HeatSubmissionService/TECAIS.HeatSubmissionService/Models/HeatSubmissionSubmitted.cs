@@ -7,9 +7,9 @@ namespace SagaContracts
 {
     public class HeatSubmissionSubmitted
     {
-        public string Address { get; set; }
-        public double HeatConsumption { get; set; }
         public Guid Id { get; set; }
+        public string CustomerAddress { get; set; }
+        public double HeatConsumption { get; set; }
         public DateTime TimeOfMeasurement { get; set; }
     }
 }

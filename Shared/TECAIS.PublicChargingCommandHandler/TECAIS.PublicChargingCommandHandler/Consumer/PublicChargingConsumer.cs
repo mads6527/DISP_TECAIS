@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using ModelContracts;
-using Serilog;
+using SagaContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +13,8 @@ namespace TECAIS.PublicChargingCommandHandler.Consumer
     class PublicChargingConsumer : IConsumer<PublicChargingCommand>
     {
         private readonly IPublicChargingService _publicChargingService;
-        private readonly ILogger _logger;
-        public PublicChargingConsumer(IPublicChargingService service, ILogger logger)
+        public PublicChargingConsumer(IPublicChargingService service)
         {
-            _logger = logger;
             _publicChargingService = service;
 
         }
@@ -24,14 +22,21 @@ namespace TECAIS.PublicChargingCommandHandler.Consumer
         {
             try
             {
-                _logger.Information("Consuming message: {@message}", context.Message);
+                Console.WriteLine("Consuming message:");
+                Console.WriteLine(context.Message);
 
                 var repsonse = await _publicChargingService.GetPrice();
 
+                await context.Publish<HeatSubmissionCharged>(new
+                {
+                    PublicCharging = repsonse,
+                    Id = context.CorrelationId
+                });
             }
             catch (Exception e)
             {
-                _logger.Error("Consumer error: ", e);
+                Console.WriteLine("Consumer error: ");
+                Console.WriteLine(e.Message);
             }
         }
     }

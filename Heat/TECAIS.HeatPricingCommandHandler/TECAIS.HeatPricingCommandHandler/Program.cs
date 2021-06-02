@@ -33,12 +33,13 @@ namespace TECAIS.HeatPricingCommandHandler
 
 
             var builder = new HostBuilder()
+                
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config.AddJsonFile("appsettings.json", true);
                     config.AddEnvironmentVariables();
 
-
+                    
 
                     if (args != null)
                         config.AddCommandLine(args);
@@ -54,6 +55,7 @@ namespace TECAIS.HeatPricingCommandHandler
                         cfg.UsingRabbitMq(ConfigureBus);
                     });
 
+                    
 
                     services.AddHostedService<HeatPricingConsoleHostedService>();
                     services.AddHttpClient<IHeatPricingService, HeatPricingService>();

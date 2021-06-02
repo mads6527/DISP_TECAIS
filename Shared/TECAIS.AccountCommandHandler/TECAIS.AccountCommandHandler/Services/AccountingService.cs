@@ -1,4 +1,5 @@
 ﻿using ModelContracts;
+using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -14,34 +15,40 @@ namespace TECAIS.AccountCommandHandler.Services
     class AccountingService : IAccountingService
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger _logger;
 
-        public AccountingService(HttpClient client, ILogger logger)
+        public AccountingService(HttpClient client)
         {
             _httpClient = client;
-            _logger = logger;
         }
         public async Task<HttpStatusCode> UpdateAccount(AccountingCommand command)
         {
             try
             {
-                _logger.Information("Updating account with new information");
+                Console.WriteLine("Updating account with new information");
 
-                string jsonString = JsonSerializer.Serialize(command);
+              
+                var content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
 
-                HttpRequestMessage message = new HttpRequestMessage();
-                message.RequestUri = new Uri("http://swtdisp-grp10-accounting-service/Accounting");
-                message.Content = new StringContent(jsonString);
-                message.Method = new HttpMethod("POST");
-
-                HttpResponseMessage response = await _httpClient.SendAsync(message);
-
+                //HttpResponseMessage response = await _httpClient.PostAsync("https://heat_submission_service:80/HeatSubmission", content);
+                HttpResponseMessage response = await _httpClient.PostAsync("http://swtdisp-grp10-accounting-service:80/api/Accounting", content); // for docker compose write: https://heat_submission_service:443/HeatSubmission
                 response.EnsureSuccessStatusCode();
+
+                //HttpRequestMessage message = new HttpRequestMessage();
+                //message.RequestUri = new Uri("http://swtdisp-grp10-accounting-service:80/api/Accounting");
+                //message.Content = new StringContent(jsonString);
+                //message.Method = new HttpMethod("POST");
+
+                //HttpResponseMessage response = await _httpClient.SendAsync(message);
+
+                //response.EnsureSuccessStatusCode();
+
+                
 
                 return response.StatusCode;
             }
             catch (Exception e)
             {
+
                 throw new Exception("UpdateAccount failed with: ",e);
             }
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelContracts
 {
-    public class AccountingCommand
+    public interface AccountingCommand
     {
         public string ConsumptionType { get; set; }
         public string Address { get; set; }

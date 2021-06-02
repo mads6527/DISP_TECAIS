@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelContracts
+namespace SagaContracts
 {
-    public interface PublicChargingCommand
+    public interface HeatSubmissionCharged
     {
-        public double TaxPrice { get; set; }
+        Guid Id { get; }
+        double PublicCharging { get; }
     }
 }

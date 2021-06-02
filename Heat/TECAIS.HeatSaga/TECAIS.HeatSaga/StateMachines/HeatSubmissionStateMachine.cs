@@ -25,30 +25,53 @@ namespace TECAIS.HeatSaga.StateMachines
             //first state - final state (last state) When onOrderSubmitted go to state Submitted
             Initially(
                 When(OnHeatSubmitted)
+                .TransitionTo(Submitted),
+                When(OnHeatPriced)
+                .TransitionTo(Priced),
+                When(OnHeatCharged)
+                .TransitionTo(Charged),
+                When(OnHeatAccounted)
+                .TransitionTo(Accounted));
+
+            During(Submitted,
+                When(OnHeatSubmitted)
                 .Then(c => c.Instance.CustomerAddress = c.Data.CustomerAddress)
                 .Then(c => c.Instance.TimeOfMeasurement = c.Data.TimeOfMeasurement)
                 .Then(c => c.Instance.HeatConsumption = c.Data.HeatConsumption)
+                .Then(c => c.Instance.CorrelationId = c.Data.Id)
                 .Then(c => callheatpricecommand(c))
-                .TransitionTo(Submitted));
+                .TransitionTo(Priced)
+                );
 
-            During(Submitted,
+            During(Priced,
                 When(OnHeatPriced).
                 Then(c => c.Instance.Price = c.Data.Price).
                 Then(c => callheatChargingComnmand(c)).
-                TransitionTo(Priced));
+                TransitionTo(Charged));
 
-            During(Priced, 
+            During(Charged, 
                 When(OnHeatCharged)
                 .Then(c => c.Instance.PublicCharging = c.Data.PublicCharging)
                 .Then(c => callheatAccoutingComnmand(c))
-                .TransitionTo(Charged));
+                .TransitionTo(Accounted));
 
-            During(Charged,
+            During(Accounted,
                 When(OnHeatAccounted)
                 .Then(c => callheatCompletedCommand(c))
-                .TransitionTo(Accounted)
-                .Then(c => callheatCompletedCommand(c))
+                //.TransitionTo(Accounted)
+                //.Then(c => callheatCompletedCommand(c))
                 .Finalize());
+
+            During(Accounted,
+                Ignore(OnHeatSubmitted),
+                Ignore(OnHeatCharged));
+
+            During(Priced,
+                Ignore(OnHeatSubmitted));
+
+            During(Charged,
+                Ignore(OnHeatSubmitted),
+                Ignore(OnHeatPriced));
         }
 
         private void callheatCompletedCommand(BehaviorContext<SubmissionState, HeatSubmissionAccounted> c)
@@ -79,7 +102,7 @@ namespace TECAIS.HeatSaga.StateMachines
             {
                 HeatConsumption = c.Data.Price
             });
-            Console.WriteLine("callheatAccoutingComnmand" + c.Data.Id);
+            Console.WriteLine("callheatChargingComnmand" + c.Data.Id);
             Console.WriteLine(c.Instance.CurrentState);
         }
 
@@ -90,7 +113,7 @@ namespace TECAIS.HeatSaga.StateMachines
             {
                 HeatConsumption = c.Data.HeatConsumption
             });
-            Console.WriteLine("callheatAccoutingComnmand" + c.Data.Id);
+            Console.WriteLine("callheatPriceComnmand" + c.Data.Id);
             Console.WriteLine(c.Instance.CurrentState);
         }
 
