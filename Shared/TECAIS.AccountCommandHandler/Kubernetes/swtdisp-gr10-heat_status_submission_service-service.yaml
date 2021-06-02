@@ -7,7 +7,11 @@ metadata:
     app: swtdisp-grp10-heat-status-submission-service
     
 spec:
+<<<<<<< HEAD
   type: NodePort
+=======
+  type: ClusterIP
+>>>>>>> f7f0c5813b4b58f8e2ba570c553cd4ece3ca1e15
   ports:
     - protocol: TCP
       port: 80

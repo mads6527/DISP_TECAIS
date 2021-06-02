@@ -1,16 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet 
 metadata:
   namespace: swtdisp-ap1-gr10
   name: swtdisp-grp10-rabbitmq
   labels:
     app: swtdisp-grp10-rabbitmq
 spec:
+  serviceName: swtdisp-grp10-rabbitmq
   replicas: 1
   selector:
     matchLabels:
       app: tecaisrabbitmq-pod
-  
+
   template:
     metadata:
       name: tecaisrabbitmq-pod
@@ -21,4 +22,16 @@ spec:
         - name: swtdisp-grp10-rabbitmq-container
           image: rabbitmq:3-management
           ports:
-            - containerPort: 80 
+            - name: amqp
+              containerPort: 5672
+              protocol: TCP
+            - name: management
+              containerPort: 15672
+              protocol: TCP
+            - name: prometheus
+              containerPort: 15692
+              protocol: TCP
+            - name: epmd
+              containerPort: 4369
+              protocol: TCP
+            

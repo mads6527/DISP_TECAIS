@@ -22,10 +22,14 @@ namespace TECAIS.IOT.HeatMeteringUnit
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             Console.WriteLine("Starting");
+            Random r = new Random();
             var measurement = 10;
+
+            var count = 1;
 
             while (!cancellationToken.IsCancellationRequested)
             {
+
                 Console.WriteLine("Posting");
                 measurement = measurement + 1;
 
@@ -35,6 +39,37 @@ namespace TECAIS.IOT.HeatMeteringUnit
                     TimeOfMeasurement = DateTime.Now,
                     HeatComsumption = measurement
                 });
+
+                if (count == 5)
+                {
+                    Console.WriteLine("Posting status");
+
+                    var randNum = r.Next(0, 10);
+                    var status = "";
+                    if (randNum >= 8)
+                    {
+                        status = "Failure";
+                    }
+                    else
+                    {
+                        status = "OK";
+                    }
+
+                    Console.WriteLine("Posting status");
+
+
+                    await _heatSubmissionService.PostStatusSubmission(new Models.StatusSubmission
+                    {
+                        Address = "Krusaavej29",
+                        TimeOfStatus = DateTime.Now,
+                        Status = status
+                    });
+                    count = 1;
+                }
+                else
+                {
+                    count++;
+                }
 
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
